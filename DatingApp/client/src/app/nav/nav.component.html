@@ -1,27 +1,62 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">Dating app</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Matches</a>
+    <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedIn">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Matches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Lists</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">Messages</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()"
+           class="nav-link">Logout</a>
+      </li>
+    </ul>
+
+    <div *ngIf="loggedIn" class="btn-group" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+      <ul id="dropdown-basic" *dropdownMenu
+          class="dropdown-menu"
+          role="menu"
+          aria-labelledby="button-basic">
+        <li role="menuitem">
+          <a class="dropdown-item">Edit Profile</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Lists</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Messages</a>
+        <li class="divider dropdown-divider"></li>
+        <li role="menuitem">
+          <a (click)="logout()"
+             class="dropdown-item">Logout</a>
         </li>
       </ul>
     </div>
-    <form class="d-flex" role="search" style="float:right">
-      <input class="form-control me-2" type="text" placeholder="Username">
-      <input class="form-control me-2" type="password" placeholder="Password">
-      <button class="btn btn-outline-success" type="submit">Login</button>
+
+    <form *ngIf="!loggedIn"
+          #loginForm="ngForm"
+          (ngSubmit)="login()"
+          class="d-flex" role="search" style="float:right"
+          autocomplete="off">
+      <input
+        name="userName"
+        [(ngModel)]="model.username"
+        class="form-control me-2"
+        type="text"
+        placeholder="Username">
+      <input
+        class="form-control me-2"
+        name="password"
+        [(ngModel)]="model.password"
+        type="password"
+        placeholder="Password"
+        style=" margin-left:10px">
+      <button
+        style=" margin-left:10px"
+        class="btn btn-outline-success"
+        type="submit">Login
+      </button>
     </form>
   </div>
 </nav>
