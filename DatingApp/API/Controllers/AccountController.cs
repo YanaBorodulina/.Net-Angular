@@ -50,7 +50,7 @@ public class AccountController : BaseApiController
         var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
         if (user == null)
         {
-            return Unauthorized("Incorrect UserName or Password.");
+            return Unauthorized("Incorrect Username or Password.");
         }
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
@@ -59,7 +59,7 @@ public class AccountController : BaseApiController
         {
             if (computedHash[i] != user.PasswordHash[i])
             {
-                return Unauthorized("Incorrect UserName or Password.");
+                return Unauthorized("Incorrect Username or Password.");
             }
         }
 
