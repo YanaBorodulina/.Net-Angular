@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using API.Entities;
+﻿using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;

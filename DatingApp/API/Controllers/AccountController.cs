@@ -27,7 +27,7 @@ public class AccountController : BaseApiController
             return BadRequest("User already exist.");
 
         using var hmac = new HMACSHA512();
-        var user = new AppUser()
+        var user = new AppUser
         {
             UserName = registerDto.UserName.ToLower(),
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
@@ -37,7 +37,7 @@ public class AccountController : BaseApiController
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return new UserDto()
+        return new UserDto
         {
             UserName = user.UserName,
             Token = _tokenService.CreteToken(user)
@@ -48,22 +48,15 @@ public class AccountController : BaseApiController
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.UserName.ToLower());
-        if (user == null)
-        {
-            return Unauthorized("Incorrect Username or Password.");
-        }
+        if (user == null) return Unauthorized("Incorrect Username or Password.");
 
         using var hmac = new HMACSHA512(user.PasswordSalt);
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
         for (var i = 0; i < computedHash.Length; i++)
-        {
             if (computedHash[i] != user.PasswordHash[i])
-            {
                 return Unauthorized("Incorrect Username or Password.");
-            }
-        }
 
-        return new UserDto()
+        return new UserDto
         {
             UserName = user.UserName,
             Token = _tokenService.CreteToken(user)

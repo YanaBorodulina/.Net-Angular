@@ -16,5 +16,4 @@ public static class ApplicationServiceExtension
         });
         return services;
     }
-    
 }

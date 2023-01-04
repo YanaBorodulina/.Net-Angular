@@ -26,12 +26,12 @@
 
     <div *ngIf="(accountService.currentUser$ | async) as user" class="btn-group" dropdown>
       <a class="dropdown-toggle text-light"
-         style="text-decoration:none"
-         dropdownToggle>Welcome {{user.userName | titlecase}}</a>
-      <ul id="dropdown-basic" *dropdownMenu
+         dropdownToggle
+         style="text-decoration:none">Welcome {{user.userName | titlecase}}</a>
+      <ul *dropdownMenu aria-labelledby="button-basic"
           class="dropdown-menu"
-          role="menu"
-          aria-labelledby="button-basic">
+          id="dropdown-basic"
+          role="menu">
         <li role="menuitem">
           <a class="dropdown-item">Edit Profile</a>
         </li>
@@ -43,27 +43,27 @@
       </ul>
     </div>
 
-    <form *ngIf="(accountService.currentUser$ | async) === null"
-          #loginForm="ngForm"
+    <form #loginForm="ngForm"
           (ngSubmit)="login()"
-          class="d-flex" role="search" style="float:right"
-          autocomplete="off">
+          *ngIf="(accountService.currentUser$ | async) === null"
+          autocomplete="off" class="d-flex" role="search"
+          style="float:right">
       <input
-        name="userName"
         [(ngModel)]="model.username"
         class="form-control me-2"
-        type="text"
-        placeholder="Username">
+        name="userName"
+        placeholder="Username"
+        type="text">
       <input
+        [(ngModel)]="model.password"
         class="form-control me-2"
         name="password"
-        [(ngModel)]="model.password"
-        type="password"
         placeholder="Password"
-        style=" margin-left:10px">
-      <button
         style=" margin-left:10px"
+        type="password">
+      <button
         class="btn btn-primary"
+        style=" margin-left:10px"
         type="submit">Login
       </button>
     </form>

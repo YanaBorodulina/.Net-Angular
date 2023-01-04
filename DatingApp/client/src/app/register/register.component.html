@@ -2,17 +2,17 @@
   <h2 class="text-center text-primary">Sing up</h2>
   <hr>
   <div class="form-group">
-    <input type="text"
+    <input [(ngModel)]="model.username"
            class="form-control"
-           name="username" [(ngModel)]="model.username"
-           placeholder="Username">
+           name="username" placeholder="Username"
+           type="text">
   </div>
 
   <div class="form-group">
-    <input type="password"
+    <input [(ngModel)]="model.password"
            class="form-control"
-           name="password" [(ngModel)]="model.password"
-           placeholder="Password">
+           name="password" placeholder="Password"
+           type="password">
   </div>
   <div class="form-group text-center">
     <button class="btn btn-success mr-2" type="submit">Register</button>

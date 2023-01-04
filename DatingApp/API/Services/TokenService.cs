@@ -18,13 +18,13 @@ public class TokenService : ITokenService
 
     public string CreteToken(AppUser user)
     {
-        var claims = new List<Claim>()
+        var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+            new(JwtRegisteredClaimNames.NameId, user.UserName)
         };
 
         var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
-        var tokenDescription = new SecurityTokenDescriptor()
+        var tokenDescription = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.Now.AddDays(2),

@@ -11,14 +11,15 @@ import {map} from "rxjs/operators";
 export class AuthGuard implements CanActivate {
   constructor(private accountService: AccountService, private toaster: ToastrService) {
   }
+
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
-      map(user=>{
-        if(user) return true;
-        else{
-          this.toaster.error("You shall not pass!");
-          return false
-        }
+      map(user => {
+          if (user) return true;
+          else {
+            this.toaster.error("You shall not pass!");
+            return false
+          }
         }
       )
     );
