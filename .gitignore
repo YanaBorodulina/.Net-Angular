@@ -2,3 +2,5 @@
 DatingApp/API/bin
 DatingApp/API/obj
 DatingApp/client/ssl
+DatingApp/client/.angular
+DatingApp/node_modules
